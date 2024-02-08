@@ -11,7 +11,7 @@ class UserStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,43 @@ class UserStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+
+        if(request()->isMethod('POST')){
+            return [
+                'name' => 'required|string',
+                'email' => 'required|string',
+                'password' => 'required|string',
+            ];
+        }
+
+        else{
+            return [
+                'name' => 'required|string',
+                'email' => 'required|string',
+                'password' => 'required|string',
+            ];
+        }
+
+    }
+
+    public function messages()
+    {
+
+        if(request()->isMethod('POST')){
+            return [
+                'required.name' => 'El nombre es requerido',
+                'required.email' => 'El email es requerido',
+                'required.password' => 'El password es requerido'
+            ];
+        }
+
+        else{
+            return [
+                'name' => 'El nombre es requerido',
+                'email' => 'El email es requerido',
+                'password' => 'El password es requerido'
+            ];
+        }
+
     }
 }
