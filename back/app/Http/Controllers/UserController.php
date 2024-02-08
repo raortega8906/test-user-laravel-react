@@ -38,7 +38,7 @@ class UserController extends Controller
             ]);
 
             return response()->json([
-                'message' => 'Usuario creado correctamente'
+                'message' => 'Usuario fue creado correctamente'
             ], 201);
 
         }catch (\Exception $exception){
@@ -48,6 +48,78 @@ class UserController extends Controller
             ],500);
 
         }
+
+    }
+
+    public function show($id){
+
+        $user = User::find($id);
+
+        if(!$user){
+
+            return response()->json([
+                'message' => 'El usuario no está registrado.'
+            ],404);
+
+        }
+
+        return response()->json([
+            'user' => $user
+        ]);
+
+    }
+
+    public function update(UserStoreRequest $request, $id){
+
+        try {
+
+            $user = User::find($id);
+
+            if(!$user){
+
+                return response()->json([
+                    'message' => 'El usuario no está registrado.'
+                ],404);
+
+            }
+
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+
+            $user->save();
+
+            return response()->json([
+                'message' => 'El usuario fue actualizado correctamente.'
+            ]);
+
+        }catch (\Exception $exception){
+
+            return response()->json([
+                'message' => 'Ups, ha ocurrido un error'.$exception->getMessage()
+            ],500);
+
+        }
+
+    }
+
+    public function destroy($id){
+
+        $user = User::find($id);
+
+        if(!$user){
+
+            return response()->json([
+                'message' => 'El usuario no está registrado.'
+            ],404);
+
+        }
+
+        $user->delete();
+
+        return response()->json([
+            'message' => 'El usuario fue eliminado correctamente.'
+        ]);
 
     }
 
