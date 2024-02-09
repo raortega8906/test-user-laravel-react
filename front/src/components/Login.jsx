@@ -1,6 +1,24 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useState} from "react";
+import axios from "../api/axios";
 
 function Login(){
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
+    const handleLogin = async (event) => {
+        event.preventDefault();
+        try{
+            await axios.post('/login', {email, password});
+            setEmail('')
+            setPassword('')
+            navigate('/forgot')
+        }catch (e){
+            console.log(e)
+        }
+    }
 
     return (
         <>
@@ -8,9 +26,15 @@ function Login(){
             <div className="card">
                 <img alt="logo" className="logo" src="src/assets/react.svg"/>
                 <h2>Login</h2>
-                <form className="form">
-                    <input type="email" placeholder="Usuario"/>
-                    <input type="password" placeholder="Contraseña"/>
+                <form onSubmit={handleLogin} className="form">
+                    <input type="email"
+                           value={email}
+                           onChange={(e) => setEmail(e.target.value)}
+                           placeholder="Usuario"/>
+                    <input type="password"
+                           value={password}
+                           onChange={(e) => setPassword(e.target.value)}
+                           placeholder="Contraseña"/>
 
                     <button>Login</button>
                 </form>
