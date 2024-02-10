@@ -20,7 +20,7 @@ function Login() {
             // Si la solicitud es exitosa, limpiar los campos y navegar a la página de olvidó la contraseña
             setEmail('');
             setPassword('');
-            navigate('/forgot-password');
+            navigate('/dashboard');
         } catch (error) {
             console.log(error.response);
             // Manejo de errores

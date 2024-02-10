@@ -1,17 +1,13 @@
 import {Link} from "react-router-dom";
 
-function Forgot(){
+function Dashboard(){
 
     return (
         <>
             <div className="background"></div>
             <div className="card">
                 <img alt="logo" className="logo" src="src/assets/react.svg"/>
-                <h2>Login</h2>
-                <form className="form">
-                    <input type="email" placeholder="Email"/>
-                    <button>Recuperar Contraseña</button>
-                </form>
+                <h2>Dashboard</h2>
 
                 <footer>
                     <Link to="/" className="navbar-link">Iniciar sesión</Link>
@@ -25,4 +21,4 @@ function Forgot(){
 
 }
 
-export default Forgot;
+export default Dashboard;
