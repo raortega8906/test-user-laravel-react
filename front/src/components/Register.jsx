@@ -17,7 +17,7 @@ function Register(){
                 </form>
 
                 <footer>
-                    <Link to="/forgot" className="navbar-link">Olvidé la contraseña</Link>
+                    <Link to="/forgot-password" className="navbar-link">Olvidé la contraseña</Link>
                     <br></br>
                     <br></br>
                     <Link to="/" className="navbar-link">Login</Link>

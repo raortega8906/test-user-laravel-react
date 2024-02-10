@@ -14,7 +14,7 @@ function Login(){
             await axios.post('/login', {email, password});
             setEmail('')
             setPassword('')
-            navigate('/forgot')
+            navigate('/forgot-password')
         }catch (e){
             console.log(e)
         }
@@ -40,7 +40,7 @@ function Login(){
                 </form>
 
                 <footer>
-                    <Link to="/forgot" className="navbar-link">Olvidé la contraseña</Link>
+                    <Link to="/forgot-password" className="navbar-link">Olvidé la contraseña</Link>
                     <br></br>
                     <br></br>
                     <Link to="/register" className="navbar-link">Registro</Link>
