@@ -14,49 +14,33 @@ function Register() {
     const handleRegister = async (event) => {
         event.preventDefault();
 
-        if (password !== confirmPassword) {
-            setError('Las contraseñas no coinciden');
-            return;
-        }
-
         try {
-            await axios.post('/register', { name, email, password, confirmPassword });
+            if (password !== confirmPassword) {
+                setError('Las contraseñas no coinciden');
+                return;
+            }
+
+            // Obtener el token CSRF
+            await axios.get('/sanctum/csrf-cookie');
+
+            // Enviar la solicitud POST con el token CSRF
+            await axios.post('/register', { name, email, password });
+
+            // Si la solicitud es exitosa, limpiar los campos y navegar a la página de inicio de sesión
             setName('');
             setEmail('');
             setPassword('');
             setConfirmPassword('');
             navigate('/dashboard');
         } catch (error) {
-            console.log(error);
+            console.log(error.response);
+            // Manejo de errores
+            if (error.response && error.response.status === 422) {
+                setError('Error: Verifique los datos ingresados');
+            } else {
+                setError('Error de conexión. Por favor, inténtalo de nuevo más tarde.');
+            }
         }
-
-        // try {
-        //     if (password !== confirmPassword) {
-        //         setError('Las contraseñas no coinciden');
-        //         return;
-        //     }
-        //
-        //     // Obtener el token CSRF
-        //     await axios.get('/sanctum/csrf-cookie');
-        //
-        //     // Enviar la solicitud POST con el token CSRF
-        //     await axios.post('/register', { name, email, password });
-        //
-        //     // Si la solicitud es exitosa, limpiar los campos y navegar a la página de inicio de sesión
-        //     setName('');
-        //     setEmail('');
-        //     setPassword('');
-        //     setConfirmPassword('');
-        //     navigate('/dashboard');
-        // } catch (error) {
-        //     console.log(error.response);
-        //     // Manejo de errores
-        //     if (error.response && error.response.status === 422) {
-        //         setError('Error: Verifique los datos ingresados');
-        //     } else {
-        //         setError('Error de conexión. Por favor, inténtalo de nuevo más tarde.');
-        //     }
-        // }
     }
 
     return (
