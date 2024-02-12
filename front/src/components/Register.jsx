@@ -24,7 +24,7 @@ function Register() {
             await axios.get('/sanctum/csrf-cookie');
 
             // Enviar la solicitud POST con el token CSRF
-            await axios.post('/register', { name, email, password });
+            await axios.post('/register', { name, email, password, password_confirmation: confirmPassword });
 
             // Si la solicitud es exitosa, limpiar los campos y navegar a la página de inicio de sesión
             setName('');
