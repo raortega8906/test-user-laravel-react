@@ -8,12 +8,15 @@ function Login() {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
+    const csrf = () => {
+      axios.get('/sanctum/csrf-cookie')
+    }
+
     const handleLogin = async (event) => {
         event.preventDefault();
-        try {
-            // Obtener el token CSRF
-            await axios.get('/sanctum/csrf-cookie');
+        await csrf();
 
+        try {
             // Enviar la solicitud POST con el token CSRF
             await axios.post('/login', { email, password });
 
@@ -24,10 +27,10 @@ function Login() {
         } catch (error) {
             console.log(error.response);
             // Manejo de errores
-            if (error.response && error.response.status === 419) {
-                setError('Error de autenticación: CSRF token mismatch');
+            if (error.response && error.response.status === 422) {
+                setError('Error en la conexión, verifique.');
             } else {
-                setError('Error de conexión. Por favor, inténtalo de nuevo más tarde.');
+                 setError('Error de conexión. Por favor, inténtalo de nuevo más tarde.');
             }
         }
     }
@@ -47,7 +50,7 @@ function Login() {
                            value={password}
                            onChange={(e) => setPassword(e.target.value)}
                            placeholder="Contraseña" required />
-
+                    {/*<span>error</span>*/}
                     <button type="submit">Login</button>
                 </form>
 

@@ -11,17 +11,19 @@ function Register() {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
+    const csrf = () => {
+        axios.get('/sanctum/csrf-cookie')
+    }
+
     const handleRegister = async (event) => {
         event.preventDefault();
+        await csrf();
 
         try {
             if (password !== confirmPassword) {
                 setError('Las contraseñas no coinciden');
                 return;
             }
-
-            // Obtener el token CSRF
-            await axios.get('/sanctum/csrf-cookie');
 
             // Enviar la solicitud POST con el token CSRF
             await axios.post('/register', { name, email, password, password_confirmation: confirmPassword });
