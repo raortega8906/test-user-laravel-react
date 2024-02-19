@@ -50,7 +50,6 @@ function Login() {
                            value={password}
                            onChange={(e) => setPassword(e.target.value)}
                            placeholder="Contraseña" required />
-                    {/*<span>error</span>*/}
                     <button type="submit">Login</button>
                 </form>
 

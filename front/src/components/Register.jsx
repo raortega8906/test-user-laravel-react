@@ -25,10 +25,8 @@ function Register() {
                 return;
             }
 
-            // Enviar la solicitud POST con el token CSRF
             await axios.post('/register', { name, email, password, password_confirmation: confirmPassword });
 
-            // Si la solicitud es exitosa, limpiar los campos y navegar a la página de inicio de sesión
             setName('');
             setEmail('');
             setPassword('');
@@ -36,7 +34,7 @@ function Register() {
             navigate('/dashboard');
         } catch (error) {
             console.log(error.response);
-            // Manejo de errores
+
             if (error.response && error.response.status === 422) {
                 setError('Error: Verifique los datos ingresados');
             } else {
