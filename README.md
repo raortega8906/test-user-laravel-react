@@ -7,8 +7,6 @@
   </a>
 </div>
 
-<link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
-
 # Project Under Construction
 
 This is a test project with a React-based frontend and a Laravel API backend, currently under development.
